@@ -2,6 +2,12 @@ const { sequelize } = require('../../database/config');
 
 // Importar modelos
 const Producto = require('./Producto');
+const Sucursal = require('./Sucursal');
+const SucursalProducto = require('./sucursalProducto');
+const Rol = require('./Rol');
+const PermisoAcceso = require('./permisoAcceso');
+const HistorialCambio = require('./historialCambio');
+const Usuario = require('./Usuario');
 // ... otros modelos
 
 // Definir asociaciones aquí (si las hay)
@@ -22,5 +28,11 @@ const Producto = require('./Producto');
 module.exports = {
   sequelize,
   Producto,
+  Sucursal,
+  SucursalProducto,
+  Rol,
+  PermisoAcceso,
+  HistorialCambio,
+  Usuario,
   //initModels
 };
