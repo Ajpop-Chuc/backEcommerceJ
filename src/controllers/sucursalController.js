@@ -1,5 +1,4 @@
 const { Sucursal } = require('../models');
-const { get } = require('../routes');
 
 const sucursalController = {
     // GET /api/sucursales
