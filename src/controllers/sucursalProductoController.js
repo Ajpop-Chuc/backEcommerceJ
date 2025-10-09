@@ -1,10 +1,10 @@
-const {sucursalProducto} = require('../models');
+const {SucursalProducto} = require('../models');
 
 const sucursalProductoController = {
     // GET /api/sucursal-productos
     getAllSucursalProductos: async (req, res) => {
         try {
-            const sucursalProductos = await sucursalProducto.findAll();
+            const sucursalProductos = await SucursalProducto.findAll();
             res.json(sucursalProductos);
         } catch (error) {
             console.error('Error al obtener sucursal-productos:', error);
@@ -16,7 +16,7 @@ const sucursalProductoController = {
     getSucursalProductoById: async (req, res) => {
         const { id } = req.params;
         try {
-            const sucursalProducto = await sucursalProducto.findByPk(id);
+            const sucursalProducto = await SucursalProducto.findByPk(id);
             if (!sucursalProducto) {
                 return res.status(404).json({ error: 'Sucursal-Producto no encontrado' });
             }
@@ -31,7 +31,7 @@ const sucursalProductoController = {
     createSucursalProducto: async (req, res) => {
         const { sucursal_id_sucursal, producto_id_producto, cantidad_disponible } = req.body;
         try {
-            const nuevaSucursalProducto = await sucursalProducto.create({ sucursal_id_sucursal, producto_id_producto, cantidad_disponible });
+            const nuevaSucursalProducto = await SucursalProducto.create({ sucursal_id_sucursal, producto_id_producto, cantidad_disponible });
             res.status(201).json(nuevaSucursalProducto);
         } catch (error) {
             console.error('Error al crear la sucursal-producto:', error);
@@ -44,7 +44,7 @@ const sucursalProductoController = {
         const { id } = req.params;
         const { id_sucursal, id_producto, cantidad_disponible } = req.body;
         try {
-            const [updated] = await sucursalProducto.update(
+            const [updated] = await SucursalProducto.update(
                 { sucursal_id_sucursal: id_sucursal, producto_id_producto: id_producto, cantidad_disponible },
                 { where: { id_sucursal_producto: id } }
             );

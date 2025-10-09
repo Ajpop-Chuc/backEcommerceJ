@@ -1,4 +1,5 @@
-const { Producto } = require('../models');
+const { Producto, SucursalProducto, Sucursal } = require('../models');
+const { sequelize } = require('../../database/config');
 
 const productoController = {
   // GET /api/productos
@@ -25,16 +26,34 @@ const productoController = {
         });
       }
 
-      res.json({
-        success: true,
-        data: producto
-      });
+      res.json({producto});
     } catch (error) {
       res.status(500).json({
         success: false,
         message: 'Error obteniendo producto',
         error: error.message
       });
+    }
+  },
+
+  // GET /api/productos_cantidades
+  getProductosConCantidad: async (req, res) => {
+    try {
+      // Aqui se SUMAN todas las cantidades de productos con el mismo id_producto en todas las sucursales en la tabla SucursalProducto
+      const productos = await Producto.findAll({
+        attributes: ['id_producto', 'nombre', 'descripcion', 'precio_unitario', 'estado',
+          [sequelize.fn('SUM', sequelize.col('SucursalProductos.cantidad_disponible')), 'cantidad_total']
+        ],
+        include: [{
+          model: SucursalProducto,
+          attributes: [],
+        }],
+        group: ['id_producto'],
+      });
+
+      res.json(productos);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
     }
   },
 

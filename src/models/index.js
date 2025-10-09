@@ -11,7 +11,12 @@ const Usuario = require('./Usuario');
 // ... otros modelos
 
 // Definir asociaciones aquí (si las hay)
-// Ejemplo: Producto.belongsToMany(Sucursal, { through: 'sucursal_producto' });
+// Producto.belongsToMany(Sucursal, { through: SucursalProducto, foreignKey: 'producto_id_producto' });
+// Sucursal.belongsToMany(Producto, { through: SucursalProducto, foreignKey: 'sucursal_id_sucursal' });
+Producto.hasMany(SucursalProducto, { foreignKey: 'producto_id_producto' });
+SucursalProducto.belongsTo(Producto, { foreignKey: 'producto_id_producto' });
+Sucursal.hasMany(SucursalProducto, { foreignKey: 'sucursal_id_sucursal' });
+SucursalProducto.belongsTo(Sucursal, { foreignKey: 'sucursal_id_sucursal' });
 
 // Función para inicializar modelos y asociaciones
 //Esto compara tus modelos con las tablas de la BD e iguala los modelos a las tablas si es necesario

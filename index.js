@@ -3,8 +3,10 @@ const express = require('express');
 const { testConnection } = require('./database/config');
 //const { initModels } = require('./src/models');
 const routes = require('./src/routes');
+const cors = require('cors');
 
 const app = express();
+app.use(cors()); // Permite todas las origins (solo desarrollo)
 const PORT = process.env.PORT || 3000;
 
 // Middlewares
