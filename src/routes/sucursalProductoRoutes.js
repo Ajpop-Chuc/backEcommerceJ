@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const sucursalController = require('../controllers/sucursalController');  
+const sucursalProductoController = require('../controllers/sucursalProductoController');  
 
 // Rutas para sucursales
-router.get('/', sucursalController.getAllSucursales);
+router.get('/', sucursalProductoController.getAllSucursalProductos);
 
 module.exports = router;

@@ -48,7 +48,7 @@ const productoController = {
           model: SucursalProducto,
           attributes: [],
         }],
-        group: ['id_producto'],
+        group: ['Producto.id_producto']        
       });
 
       res.json(productos);

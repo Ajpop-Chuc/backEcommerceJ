@@ -1,11 +1,44 @@
-const {SucursalProducto} = require('../models');
+const {SucursalProducto, Sucursal, Producto} = require('../models');
+const { Sequelize } = require('sequelize');
 
 const sucursalProductoController = {
     // GET /api/sucursal-productos
-    getAllSucursalProductos: async (req, res) => {
+     getAllSucursalProductos: async (req, res) => {
         try {
-            const sucursalProductos = await SucursalProducto.findAll();
-            res.json(sucursalProductos);
+            const productos = await Producto.findAll({
+                include: [{
+                    model: SucursalProducto,
+                    include: [{
+                        model: Sucursal,
+                        where: { estado: true } // Solo sucursales activas
+                    }],
+                    where: {
+                        cantidad_disponible: {
+                            [Sequelize.Op.gt]: 0 // Solo donde hay stock
+                        }
+                    }
+                }],
+                where: { estado: true } // Solo productos activos
+            });
+
+            // Formatear la respuesta
+            const resultado = productos.map(producto => ({
+                id_producto: producto.id_producto,
+                nombre: producto.nombre,
+                descripcion: producto.descripcion,
+                precio_unitario: producto.precio_unitario,
+                estado: producto.estado,
+                sucursales: producto.SucursalProductos.map(sp => ({
+                    id_sucursal: sp.Sucursal.id_sucursal,
+                    nombre: sp.Sucursal.nombre,
+                    direccion: sp.Sucursal.direccion,
+                    telefono: sp.Sucursal.telefono,
+                    cantidad_disponible: sp.cantidad_disponible,
+                    id_sucursal_producto: sp.id_sucursal_producto
+                }))
+            }));
+
+            res.json(resultado);
         } catch (error) {
             console.error('Error al obtener sucursal-productos:', error);
             res.status(500).json({ error: 'Error al obtener sucursal-productos' });
