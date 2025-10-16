@@ -1,5 +1,7 @@
 const {DataTypes} = require('sequelize');
 const {sequelize} = require('../../database/config');
+// importar Rol si es necesario para asociaciones
+const Rol = require('./Rol');
 
 const Usuario = sequelize.define('Usuario', {
   id_usuario: {
@@ -13,7 +15,7 @@ const Usuario = sequelize.define('Usuario', {
     unique: true
     },
     contrasena: {
-    type: DataTypes.STRING(40),
+    type: DataTypes.STRING,
     allowNull: false
     },
     estado: {
@@ -22,11 +24,16 @@ const Usuario = sequelize.define('Usuario', {
     defaultValue: true
     },
     rol_id_rol: {
-    type: DataTypes.INTEGER,
-    foreignKey: true
-    }
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+          model: Rol,
+          key: 'id_rol'
+      }
+  }
 }, {
   tableName: 'usuario',
   timestamps: false
 });
+
 module.exports = Usuario;

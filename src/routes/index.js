@@ -8,6 +8,21 @@ const sucursalProductoRoutes = require('./sucursalProductoRoutes'); // Si tienes
 const rolRoutes = require('./rolRoutes'); // Si tienes rutas para roles
 const historialCambioRoutes = require('./historialCambioRoutes'); // Si tienes rutas para historial de cambios
 const usuarioRoutes = require('./usuarioRoutes'); // Si tienes rutas para usuarios
+const authRoutes = require('./authRoutes'); // Si tienes rutas para autenticación
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Definir prefijos
 router.use('/api/productos', productoRoutes);
@@ -16,7 +31,7 @@ router.use('/api/sucursal-productos', sucursalProductoRoutes);
 router.use('/api/roles', rolRoutes);
 router.use('/api/historial_cambios', historialCambioRoutes);
 router.use('/api/usuarios', usuarioRoutes);
-
+router.use('/api/auth', authRoutes);
 
 
 

@@ -30,6 +30,13 @@ SucursalProducto.belongsTo(Sucursal, { foreignKey: 'sucursal_id_sucursal' });
 //   }
 // };
 
+
+//Asociación de Usuario-Rol 
+// Un usuario pertenece a un rol
+Usuario.belongsTo(Rol, { foreignKey: 'rol_id_rol' });
+// Un rol puede tener muchos usuarios
+Rol.hasMany(Usuario, { foreignKey: 'rol_id_rol' });
+
 module.exports = {
   sequelize,
   Producto,
