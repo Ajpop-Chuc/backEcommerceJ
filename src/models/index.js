@@ -1,4 +1,4 @@
-const { sequelize } = require('../../database/config');
+const { Sequelize } = require('../../database/config');
 
 // Importar modelos
 const Producto = require('./Producto');
@@ -31,7 +31,7 @@ SucursalProducto.belongsTo(Sucursal, { foreignKey: 'sucursal_id_sucursal' });
 // };
 
 module.exports = {
-  sequelize,
+  Sequelize,
   Producto,
   Sucursal,
   SucursalProducto,

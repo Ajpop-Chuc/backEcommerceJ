@@ -6,7 +6,7 @@ const productoController = {
   getAllProductos: async (req, res) => {
     try {
       const productos = await Producto.findAll();
-      res.json({productos});
+      res.json(productos);
     } catch (error) {
       console.error('Error al obtener productos:', error);
       res.status(500).json({error: 'Error obteniendo productos'});
@@ -26,7 +26,7 @@ const productoController = {
         });
       }
 
-      res.json({producto});
+      res.json(producto);
     } catch (error) {
       res.status(500).json({
         success: false,
