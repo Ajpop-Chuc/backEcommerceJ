@@ -4,7 +4,9 @@ const sucursalController = {
     // GET /api/sucursales
     getAllSucursales: async (req, res) => {
         try {
-            const sucursales = await Sucursal.findAll();
+            const sucursales = await Sucursal.findAll({
+                where: { estado: true } // Solo sucursales activas
+            });
             res.json(sucursales);
         } catch (error) {
             console.error('Error al obtener sucursales:', error);

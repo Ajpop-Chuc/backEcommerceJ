@@ -23,7 +23,12 @@ const Producto = sequelize.define('Producto', {
     type: DataTypes.BOOLEAN,
     allowNull: false,
     defaultValue: true
-  }
+  },
+  // path o URL de la imagen del producto
+    imagen_url: {
+      type: DataTypes.STRING(255),
+      allowNull: true             // se permite nulo si no se proporciona una imagen
+    }
 }, {
   tableName: 'producto',
   timestamps: false

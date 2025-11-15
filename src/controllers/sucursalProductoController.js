@@ -80,6 +80,7 @@ const sucursalProductoController = {
                 descripcion: producto.descripcion,
                 precio_unitario: producto.precio_unitario,
                 estado: producto.estado,
+                imagen_url: producto.imagen_url, // url de la imagen del producto
                 sucursales: producto.SucursalProductos.map(sp => ({
                     id_sucursal: sp.Sucursal.id_sucursal,
                     nombre: sp.Sucursal.nombre,

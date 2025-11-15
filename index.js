@@ -33,6 +33,7 @@ app.use((req, res, next) => {
 // Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use('/uploads', express.static('uploads')); // Le indica a Express que sirva archivos estáticos desde la carpeta 'uploads'
 
 // Configuración de Sesiones
 const sessionStore = new SequelizeStore({
@@ -73,7 +74,8 @@ app.use((err, req, res, next) => {
 const startServer = async () => {
     try {
         await testConnection();
-        await sequelize.sync({ alter: true });
+        //await sequelize.sync({ alter: true }); // Sincroniza modelos con la base de datos esto esta mal en produccion
+        await sequelize.sync(); // Sincroniza modelos con la base de datos
 
         app.listen(PORT, () => {
             console.log('='.repeat(60));
